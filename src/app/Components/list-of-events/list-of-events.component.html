@@ -1,0 +1,36 @@
+@if (events$ | async; as eventInfo){
+   <div>
+    <h1>List of Events</h1>
+    <table>
+        <thead>
+        <tr>
+            <br>
+        </tr>
+        </thead>
+        <tbody>
+        @for (evento of eventInfo; let idx = $index; track idx) {
+            <tr>
+
+                <td>{{ idx + 1 }}. <a [routerLink]="['/event/', evento.id]">{{evento.name}}</a></td>
+                <td>
+                    <button (click)="updateEvent(evento.id, evento)">📝</button> <button (click)="deleteEvent(evento.id)">🗑️</button>
+                </td>
+                <td>
+                </td>
+                @if(!evento.isFavorite){
+                    <td>
+                        <button (click)="favoriteEvent(evento)">❤️</button>
+                    </td>
+                }
+            </tr>
+        }
+        <br>
+        <a [routerLink]="'/eventsubmitform/'">Add Event🗒️</a>
+        </tbody>
+    </table>
+</div>
+}
+@else {
+    <h1>Event list empty!!!</h1>
+}
+
